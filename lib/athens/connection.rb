@@ -1,10 +1,14 @@
 module Athens
-  class Query
+  class Connection
+    attr_reader :database_name
 
-    def self.execute(query)
-      client = Aws::Athena::Client.new
+    def initialize(database_name)
+      @database_name = database_name
+      @client = Aws::Athena::Client.new
+    end
 
-      resp = client.start_query_execution(
+    def execute(query)
+      resp = @client.start_query_execution(
         query_string: query,
         query_execution_context: context,
         result_configuration: result_config
@@ -14,7 +18,7 @@ module Athens
       result = nil
 
       while true
-        result = client.get_query_execution(query_execution_id: resp.query_execution_id)
+        result = @client.get_query_execution(query_execution_id: resp.query_execution_id)
 
         state = result.query_execution.status.state
 
@@ -34,24 +38,24 @@ module Athens
 
       # If here it was successful, grab the results and return those
 
-      query_result = client.get_query_results({query_execution_id: result.query_execution.query_execution_id})
+      query_result = @client.get_query_results({query_execution_id: result.query_execution.query_execution_id})
 
       return query_result
     end
 
     private
 
-      def self.context 
-        Aws::Athena::Types::QueryExecutionContext.new(database: Athens.configuration.database_name)
+      def context 
+        Aws::Athena::Types::QueryExecutionContext.new(database: @database_name)
       end
 
-      def self.result_config
+      def result_config
         Aws::Athena::Types::ResultConfiguration.new(
           output_location: Athens.configuration.output_location,
           encryption_configuration: {
             encryption_option: "SSE_S3"
           }
         )
-      end
+      end    
   end
 end

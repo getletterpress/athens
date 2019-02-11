@@ -1,7 +1,7 @@
 require "athens/error"
 require "athens/version"
 require "athens/configuration"
-require "athens/query"
+require "athens/connection"
 
 require 'aws-sdk-athena'
 
