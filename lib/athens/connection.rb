@@ -5,7 +5,7 @@ module Athens
     attr_reader :database_name
     attr_reader :client
 
-    def initialize(database_name)
+    def initialize(database_name = nil)
       @database_name = database_name
       @client = Aws::Athena::Client.new
     end
@@ -13,11 +13,18 @@ module Athens
     # Runs a query against Athena, returning an Athens::Query object
     # that you can use to wait for it to finish or get the results
     def execute(query)
-      resp = @client.start_query_execution(
-        query_string: query,
-        query_execution_context: context,
-        result_configuration: result_config
-      )
+      if @database_name
+        resp = @client.start_query_execution(
+          query_string: query,
+          query_execution_context: context,
+          result_configuration: result_config
+        )
+      else
+        resp = @client.start_query_execution(
+          query_string: query,
+          result_configuration: result_config
+        )
+      end        
 
       return Athens::Query.new(self, resp.query_execution_id)
     end
