@@ -5,9 +5,16 @@ module Athens
     attr_reader :database_name
     attr_reader :client
 
-    def initialize(database_name = nil)
-      @database_name = database_name
-      @client = Aws::Athena::Client.new
+    def initialize(database: nil, aws_client_override: {})
+      @database_name = database
+
+      client_config = { 
+        access_key_id: Athens.configuration.aws_access_key,
+        secret_access_key: Athens.configuration.aws_secret_key,
+        region: Athens.configuration.aws_region
+      }.merge(aws_client_override).compact
+
+      @client = Aws::Athena::Client.new(client_config)
     end
 
     # Runs a query against Athena, returning an Athens::Query object
