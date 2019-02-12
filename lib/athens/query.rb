@@ -7,6 +7,7 @@ module Athens
       @query_execution_id = query_execution_id
       @state = nil
       @state_reason = nil
+      @cancelled = false
 
       @results = nil
       @hash_results = nil
@@ -49,6 +50,22 @@ module Athens
 
         # Wait a bit and check again
         sleep(0.25)
+      end
+    end
+
+    def cancel
+      unless @cancelled
+        resp = @connection.client.stop_query_execution({
+          query_execution_id: @query_execution_id
+        })
+        @cancelled = true
+        refresh_state
+      end
+
+      if @state == 'CANCELLED'
+        return true
+      else
+        return false
       end
     end
 
