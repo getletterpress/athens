@@ -118,7 +118,7 @@ end
 When a query is running you can do a few things:
 
 ```ruby
-conn = Athens::Connection.new(database 'sample')
+conn = Athens::Connection.new(database: 'sample')
 query = conn.execute("SELECT * FROM mytable")
 
 query.state  # Returns one of QUEUED, RUNNING, SUCCEEDED, FAILED, or CANCELLED (https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Athena/Types/QueryExecutionStatus.html#state-instance_method)
