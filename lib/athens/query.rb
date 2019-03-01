@@ -82,6 +82,7 @@ module Athens
 
         while true
           rows = result.result_set.rows
+          break if rows.empty?
 
           if first
             @results << rows.shift.data.map {|col| col.var_char_value}
@@ -118,12 +119,15 @@ module Athens
         headers = all_rows.shift
 
         @hash_results = []
-        all_rows.each do |row|
-          map = {}
-          headers.each_with_index do |header, index|
-            map[header] = row[index]
+
+        unless headers.nil?
+          all_rows.each do |row|
+            map = {}
+            headers.each_with_index do |header, index|
+              map[header] = row[index]
+            end
+            @hash_results << map
           end
-          @hash_results << map
         end
       end
 
