@@ -151,29 +151,36 @@ module Athens
 
         metadata.column_info.each_with_index do |col, index|
           data = row.data[index].var_char_value
+          nullable = ["UNKNOWN", "NULLABLE"].include?(col.nullable)
 
-          case col.type
-          when 'tinyint', 'smallint', 'int', 'integer', 'bigint'
-            mapped << data.to_i
-          when 'timestamp'
-            mapped << Time.parse(data)
-          when 'varchar'
+          if nullable && data.nil?
             mapped << data
-          when 'float', 'double'
-            mapped << data.to_f
-          when 'decimal'
-            if @decimal_without_new
-              mapped << BigDecimal(data)
-            else
-              mapped << BigDecimal.new(data)
-            end
-          when 'date'
-            mapped << Date.parse(data)
-          when 'boolean'
-            mapped << (data == "true")
+          elsif !nullable && data.nil?
+            raise InvalidNullError.new("Got null data from a non-null field (#{col.name})")
           else
-            puts "WARNING: Unsupported type: #{col.type}, defaulting to string"
-            mapped << data
+            case col.type
+            when 'tinyint', 'smallint', 'int', 'integer', 'bigint'
+              mapped << data.to_i
+            when 'timestamp'
+              mapped << Time.parse(data)
+            when 'varchar'
+              mapped << data
+            when 'float', 'double'
+              mapped << data.to_f
+            when 'decimal'
+              if @decimal_without_new
+                mapped << BigDecimal(data)
+              else
+                mapped << BigDecimal.new(data)
+              end
+            when 'date'
+              mapped << Date.parse(data)
+            when 'boolean'
+              mapped << (data == "true")
+            else
+              puts "WARNING: Unsupported type: #{col.type}, defaulting to string"
+              mapped << data
+            end
           end
         end
 
