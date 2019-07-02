@@ -61,6 +61,23 @@ results = query.to_h
 # ]
 ```
 
+Results are also available as unbuffered enumerators of row arrays:
+```ruby
+query.rows.each {|row| ...}
+# ['column_1', 'column_2', 'column_3']
+# [15, 'data', true]
+# [20, 'foo', false],
+# ...
+```
+
+Or hashes:
+```ruby
+query.records.each {|record| ...}
+# {'column_1': 15, 'column_2': 'data', 'column_3': true}
+# {'column_1': 20, 'column_2': 'foo', 'column_3': false}
+# ...
+```
+
 Athens attempts to parse the sql data types into their ruby equivalents, although there's currently no support for the more complex Array/Map types.
 
 ### Configuration
