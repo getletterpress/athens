@@ -99,30 +99,27 @@ module Athens
       end
     end
 
+    def records
+      Enumerator.new do |y|
+        headers = nil
+
+        rows.each_with_index do |row|
+          if headers.nil?
+            headers = row
+            next
+          end
+
+          y << Hash[headers.zip(row)]
+        end
+      end
+    end
+
     def to_a(header_row: true)
       (@results ||= rows.to_a).drop(header_row ? 0 : 1)
     end
 
     def to_h
-      if @hash_results.nil?
-        all_rows = self.to_a(header_row: true)
-
-        headers = all_rows.shift
-
-        @hash_results = []
-
-        unless headers.nil?
-          all_rows.each do |row|
-            map = {}
-            headers.each_with_index do |header, index|
-              map[header] = row[index]
-            end
-            @hash_results << map
-          end
-        end
-      end
-
-      return @hash_results
+      @hash_results ||= records.to_a
     end
 
     private
