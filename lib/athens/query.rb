@@ -69,12 +69,10 @@ module Athens
       end
     end
 
-    def to_a(header_row: true)
+    def rows
       raise InvalidRequestError.new("Query must be in SUCCEEDED state to return results") unless @state == 'SUCCEEDED'
 
-      if @results.nil?
-        # Need to load and map all of the rows from the original result
-        @results = []
+      Enumerator.new do |y|
         result = @connection.client.get_query_results({query_execution_id: @query_execution_id})
 
         metadata = result.result_set.result_set_metadata
@@ -85,53 +83,43 @@ module Athens
           break if rows.empty?
 
           if first
-            @results << rows.shift.data.map {|col| col.var_char_value}
+            y << rows.shift.data.map {|col| col.var_char_value}
             first = false
           end
 
-          rows.each do |row|
-            @results << map_types(metadata, row)
-          end
+          rows.each {|row| y << map_types(metadata, row)}
 
-          if result.next_token
-            result = @connection.client.get_query_results({
-              query_execution_id: @query_execution_id,
-              next_token: result.next_token
-            })
-          else
-            # No more rows, break out and return our mapped data
-            break
-          end
+          break unless result.next_token
+
+          result = @connection.client.get_query_results({
+            query_execution_id: @query_execution_id,
+            next_token: result.next_token
+          })
         end
-      end
-
-      if header_row
-        return @results
-      else
-        return @results[1, @results.size]
       end
     end
 
-    def to_h
-      if @hash_results.nil?
-        all_rows = self.to_a(header_row: true)
+    def records
+      Enumerator.new do |y|
+        headers = nil
 
-        headers = all_rows.shift
-
-        @hash_results = []
-
-        unless headers.nil?
-          all_rows.each do |row|
-            map = {}
-            headers.each_with_index do |header, index|
-              map[header] = row[index]
-            end
-            @hash_results << map
+        rows.each_with_index do |row|
+          if headers.nil?
+            headers = row
+            next
           end
+
+          y << Hash[headers.zip(row)]
         end
       end
+    end
 
-      return @hash_results
+    def to_a(header_row: true)
+      (@results ||= rows.to_a).drop(header_row ? 0 : 1)
+    end
+
+    def to_h
+      @hash_results ||= records.to_a
     end
 
     private
