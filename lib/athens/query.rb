@@ -151,7 +151,7 @@ module Athens
               mapped << data.to_i
             when 'timestamp'
               mapped << Time.parse(data)
-            when 'varchar'
+            when 'varchar', 'string'
               mapped << data
             when 'float', 'double'
               mapped << data.to_f
