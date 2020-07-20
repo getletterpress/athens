@@ -19,7 +19,7 @@ GEM
       jmespath (~> 1.0)
     aws-sigv4 (1.0.3)
     jmespath (1.4.0)
-    rake (10.5.0)
+    rake (13.0.1)
 
 PLATFORMS
   ruby
@@ -27,7 +27,7 @@ PLATFORMS
 DEPENDENCIES
   athens!
   bundler (~> 1.17)
-  rake (~> 10.0)
+  rake (~> 13.0)
 
 BUNDLED WITH
    1.17.2
