@@ -1,3 +1,8 @@
+## 0.3.1 / 2020-07-20
+
+* Bumped development rake version from 0.10 to 0.13 for security fixes
+* Fixed warning about string defaulting to string (#2)
+
 ## 0.3.0 / 2019-07-02
 
 * Added enumerator-based result access methods: `#rows` and `#records`
