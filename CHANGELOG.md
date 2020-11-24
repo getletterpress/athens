@@ -1,3 +1,7 @@
+## 0.3.2 / 2020-11-24
+
+* Added optional `request_token` and `work_group` parameters to the query execute method (thanks [mediafinger](https://github.com/mediafinger))
+
 ## 0.3.1 / 2020-07-20
 
 * Bumped development rake version from 0.10 to 0.13 for security fixes
