@@ -8,7 +8,7 @@ module Athens
     def initialize(database: nil, aws_client_override: {})
       @database_name = database
 
-      client_config = { 
+      client_config = {
         access_key_id: Athens.configuration.aws_access_key,
         secret_access_key: Athens.configuration.aws_secret_key,
         region: Athens.configuration.aws_region
@@ -19,26 +19,28 @@ module Athens
 
     # Runs a query against Athena, returning an Athens::Query object
     # that you can use to wait for it to finish or get the results
-    def execute(query)
+    def execute(query, request_token: nil, workgroup: nil)
       if @database_name
         resp = @client.start_query_execution(
           query_string: query,
           query_execution_context: context,
-          result_configuration: result_config
+          result_configuration: result_config,
+          client_request_token: request_token,
+          work_group: workgroup
         )
       else
         resp = @client.start_query_execution(
           query_string: query,
           result_configuration: result_config
         )
-      end        
+      end
 
       return Athens::Query.new(self, resp.query_execution_id)
     end
 
     private
 
-      def context 
+      def context
         Aws::Athena::Types::QueryExecutionContext.new(database: @database_name)
       end
 
