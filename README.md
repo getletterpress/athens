@@ -146,11 +146,11 @@ query.cancel   # Attempts to cancel an in-progress query, returns true or false 
 query.to_a(header_row: false)  # If you want your query results returned without a header row of column names
 ```
 
-The execute method also optionally supports the `request_token` and `workgroup` [parameters](https://docs.aws.amazon.com/athena/latest/APIReference/API_StartQueryExecution.html#API_StartQueryExecution_RequestSyntax):
+The execute method also optionally supports the `request_token` and `work_group` [parameters](https://docs.aws.amazon.com/athena/latest/APIReference/API_StartQueryExecution.html#API_StartQueryExecution_RequestSyntax):
 
 ```ruby
 conn = Athens::Connection.new(database: 'sample')
-query = conn.execute("SELECT * FROM mytable", request_token: single_use_token, workgroup: my_workgroup)
+query = conn.execute("SELECT * FROM mytable", request_token: single_use_token, work_group: my_work_group)
 ```
 
 ## Development
