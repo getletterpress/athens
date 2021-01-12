@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    athens (0.3.2)
+    athens (0.3.3)
       aws-sdk-athena (~> 1)
 
 GEM
