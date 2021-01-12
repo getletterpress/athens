@@ -1,3 +1,7 @@
+## 0.3.3 / 2021-01-12
+
+* Added support for Ruby 3.0 (thanks [blackjiro](https://github.com/blackjiro))
+
 ## 0.3.2 / 2020-11-24
 
 * Added optional `request_token` and `work_group` parameters to the query execute method (thanks [mediafinger](https://github.com/mediafinger))
