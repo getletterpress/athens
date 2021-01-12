@@ -1,25 +1,30 @@
 PATH
   remote: .
   specs:
-    athens (0.3.1)
+    athens (0.3.2)
       aws-sdk-athena (~> 1)
 
 GEM
   remote: https://rubygems.org/
   specs:
     aws-eventstream (1.1.0)
-    aws-partitions (1.343.0)
-    aws-sdk-athena (1.30.0)
-      aws-sdk-core (~> 3, >= 3.99.0)
+    aws-partitions (1.416.0)
+    aws-sdk-athena (1.33.0)
+      aws-sdk-core (~> 3, >= 3.109.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-core (3.104.1)
+    aws-sdk-core (3.111.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sigv4 (1.2.1)
+    aws-sigv4 (1.2.2)
       aws-eventstream (~> 1, >= 1.0.2)
     jmespath (1.4.0)
+    mini_portile2 (2.5.0)
+    nokogiri (1.11.1)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
+    racc (1.5.2)
     rake (13.0.1)
 
 PLATFORMS
@@ -27,8 +32,9 @@ PLATFORMS
 
 DEPENDENCIES
   athens!
-  bundler (~> 1.17)
+  bundler (>= 1.17)
+  nokogiri (~> 1)
   rake (~> 13.0)
 
 BUNDLED WITH
-   2.1.4
+   2.2.5
