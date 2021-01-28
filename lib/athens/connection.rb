@@ -9,7 +9,6 @@ module Athens
       @database_name = database
 
       if (Athens.configuration.aws_profile)
-        puts("Using the aws_profile approach")
         client_config = {
           profile: Athens.configuration.aws_profile
         }.merge(aws_client_override).compact
