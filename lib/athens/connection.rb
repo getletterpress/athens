@@ -8,11 +8,18 @@ module Athens
     def initialize(database: nil, aws_client_override: {})
       @database_name = database
 
-      client_config = {
-        access_key_id: Athens.configuration.aws_access_key,
-        secret_access_key: Athens.configuration.aws_secret_key,
-        region: Athens.configuration.aws_region
-      }.merge(aws_client_override).compact
+      if (Athens.configuration.aws_profile)
+        puts("Using the aws_profile approach")
+        client_config = {
+          profile: Athens.configuration.aws_profile
+        }.merge(aws_client_override).compact
+      else
+        client_config = {
+          access_key_id: Athens.configuration.aws_access_key,
+          secret_access_key: Athens.configuration.aws_secret_key,
+          region: Athens.configuration.aws_region
+        }.merge(aws_client_override).compact
+      end
 
       @client = Aws::Athena::Client.new(client_config)
     end
