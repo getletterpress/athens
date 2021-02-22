@@ -44,8 +44,8 @@ When your query is done, grab the results as an array:
 ```ruby
 results = query.to_a
 # [
-#   ['column_1', 'column_2', 'column_3'], 
-#   [15, 'data', true], 
+#   ['column_1', 'column_2', 'column_3'],
+#   [15, 'data', true],
 #   [20, 'foo', false],
 #   ...
 # ]
@@ -55,7 +55,7 @@ Or as a hash (which is really an array where each row is a hash):
 ```ruby
 results = query.to_h
 # [
-#   {'column_1': 15, 'column_2': 'data', 'column_3': true}, 
+#   {'column_1': 15, 'column_2': 'data', 'column_3': true},
 #   {'column_1': 20, 'column_2': 'foo', 'column_3': false},
 #   ...
 # ]
@@ -87,9 +87,10 @@ Configure your AWS settings in an `Athens.configure` block (in rails put this in
 ```ruby
 Athens.configure do |config|
   config.output_location = "s3://my-bucket/my-folder/athena/results/"  # Required
-  config.aws_access_key = 'access'     # Optional
-  config.aws_secret_key = 'secret'     # Optional
-  config.aws_region     = 'us-east-1'  # Optional
+  config.aws_access_key      = 'access'     # Optional
+  config.aws_secret_key      = 'secret'     # Optional
+  config.aws_region          = 'us-east-1'  # Optional
+  config.wait_polling_period = 0.25         # Optional - What period should we poll for the complete query?
 end
 ```
 
@@ -172,3 +173,4 @@ The gem is available as open source under the terms of the [WTFPL License](http:
 ## Code of Conduct
 
 Everyone interacting in the Athens project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/getletterpress/athens/blob/master/CODE_OF_CONDUCT.md).
+g
