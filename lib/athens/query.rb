@@ -49,7 +49,7 @@ module Athens
         end
 
         # Wait a bit and check again
-        sleep(0.25)
+        sleep(Athens.configuration.wait_polling_period.to_f)
       end
     end
 
@@ -173,9 +173,8 @@ module Athens
         end
 
         return mapped
-      end    
+      end
 
 
   end
 end
-
