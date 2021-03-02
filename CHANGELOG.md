@@ -1,3 +1,7 @@
+## 0.3.4 / 2021-03-02
+
+* Added configurable polling period (thanks [jesseproudman](https://github.com/jesseproudman))
+
 ## 0.3.3 / 2021-01-12
 
 * Added support for Ruby 3.0 (thanks [blackjiro](https://github.com/blackjiro))

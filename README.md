@@ -173,4 +173,4 @@ The gem is available as open source under the terms of the [WTFPL License](http:
 ## Code of Conduct
 
 Everyone interacting in the Athens project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/getletterpress/athens/blob/master/CODE_OF_CONDUCT.md).
-g
+
