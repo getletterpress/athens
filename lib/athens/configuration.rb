@@ -4,7 +4,7 @@ module Athens
                   :aws_secret_key,
                   :aws_region,
                   :output_location,
-                  :wait_polling_period
+                  :wait_polling_period,
                   :aws_profile
 
     def initialize
