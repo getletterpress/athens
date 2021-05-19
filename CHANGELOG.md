@@ -1,3 +1,9 @@
+## 0.3.5 / 2021-05-19
+
+* Addition of :aws_profile as a configuration option for credentials (thanks [oisin](https://github.com/oisin))
+* Fix for BigDecimal in Ruby 3.x (thanks [mediafinger](https://github.com/mediafinger))
+* Bumped development gem versions to latest releases
+
 ## 0.3.4 / 2021-03-02
 
 * Added configurable polling period (thanks [jesseproudman](https://github.com/jesseproudman))
