@@ -14,6 +14,7 @@ module Athens
 
       version = RUBY_VERSION.split('.').map {|v| v.to_i}
       @decimal_without_new = (version[0] >= 2 && version[1] >= 5)
+      @decimal_without_new = (version[0] == 2 && version[1] >= 5) || (version[0] >= 3)
     end
 
     def state
