@@ -7,20 +7,20 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    aws-eventstream (1.1.0)
-    aws-partitions (1.430.0)
-    aws-sdk-athena (1.35.0)
+    aws-eventstream (1.1.1)
+    aws-partitions (1.458.0)
+    aws-sdk-athena (1.37.0)
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-core (3.112.0)
+    aws-sdk-core (3.114.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sigv4 (1.2.2)
+    aws-sigv4 (1.2.3)
       aws-eventstream (~> 1, >= 1.0.2)
     jmespath (1.4.0)
-    rake (13.0.1)
+    rake (13.0.3)
     rexml (3.2.5)
 
 PLATFORMS
