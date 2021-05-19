@@ -89,6 +89,7 @@ Athens.configure do |config|
   config.output_location = "s3://my-bucket/my-folder/athena/results/"  # Required
   config.aws_access_key      = 'access'     # Optional
   config.aws_secret_key      = 'secret'     # Optional
+  config.aws_profile         = 'myprofile'  # Optional
   config.aws_region          = 'us-east-1'  # Optional
   config.wait_polling_period = 0.25         # Optional - What period should we poll for the complete query?
 end

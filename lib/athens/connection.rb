@@ -11,7 +11,8 @@ module Athens
       client_config = {
         access_key_id: Athens.configuration.aws_access_key,
         secret_access_key: Athens.configuration.aws_secret_key,
-        region: Athens.configuration.aws_region
+        region: Athens.configuration.aws_region,
+        profile: Athens.configuration.aws_profile
       }.merge(aws_client_override).compact
 
       @client = Aws::Athena::Client.new(client_config)
