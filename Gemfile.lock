@@ -21,7 +21,7 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     jmespath (1.4.0)
     rake (13.0.1)
-    rexml (3.2.4)
+    rexml (3.2.5)
 
 PLATFORMS
   ruby
