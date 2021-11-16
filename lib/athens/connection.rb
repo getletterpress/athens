@@ -48,9 +48,7 @@ module Athens
       def result_config
         Aws::Athena::Types::ResultConfiguration.new(
           output_location: Athens.configuration.output_location,
-          encryption_configuration: {
-            encryption_option: "SSE_S3"
-          }
+          encryption_configuration: Athens.configuration.result_encryption
         )
       end
 
