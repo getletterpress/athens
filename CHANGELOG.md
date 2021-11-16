@@ -1,3 +1,8 @@
+## 0.3.6 / 2021-11-16
+
+* Addition of :result_encryption as a configuration option to change encryption options for query results (https://github.com/getletterpress/athens/issues/12)
+* Bumped development gem versions to latest releases
+
 ## 0.3.5 / 2021-05-19
 
 * Addition of :aws_profile as a configuration option for credentials (thanks [oisin](https://github.com/oisin))
