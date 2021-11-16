@@ -92,6 +92,7 @@ Athens.configure do |config|
   config.aws_profile         = 'myprofile'  # Optional
   config.aws_region          = 'us-east-1'  # Optional
   config.wait_polling_period = 0.25         # Optional - What period should we poll for the complete query?
+  config.result_encryption   = nil          # Optional, see below
 end
 ```
 
@@ -104,6 +105,14 @@ conn = Athens::Connection.new(aws_client_override: {})
 ```
 
 Take a look at the [AWS Athena SDK](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Athena/Client.html#initialize-instance_method) for a list of all the available options.
+
+The `result_encryption` option controls how the Athens results will be encrypted at the `output_location`.  By default it's set to use the Amazon SSE encryption if you don't set it at all:
+
+```ruby
+{ encryption_option: "SSE_S3" }
+```
+
+If you set it to `nil`, it'll default to the bucket encryption settings.  You can also use a customer kms key, see https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Athena/Types/EncryptionConfiguration.html for the correct format.
 
 ### Advanced Usage
 
