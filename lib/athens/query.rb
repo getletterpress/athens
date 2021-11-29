@@ -166,6 +166,8 @@ module Athens
               mapped << Date.parse(data)
             when 'boolean'
               mapped << (data == "true")
+            when 'json'
+              mapped << JSON.parse(data)
             else
               puts "WARNING: Unsupported type: #{col.type}, defaulting to string"
               mapped << data
