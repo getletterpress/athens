@@ -5,6 +5,7 @@ require "athens/connection"
 require "athens/query"
 
 require 'aws-sdk-athena'
+require 'oj'
 
 module Athens
   class << self

@@ -167,7 +167,7 @@ module Athens
             when 'boolean'
               mapped << (data == "true")
             when 'json'
-              mapped << JSON.parse(data)
+              mapped << Oj.load(data, symbol_keys: true)
             else
               puts "WARNING: Unsupported type: #{col.type}, defaulting to string"
               mapped << data
