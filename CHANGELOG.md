@@ -1,3 +1,42 @@
+## 0.4.0 / 2021-12-03
+
+* Added automatic parsing of JSON columns (thanks [darkside](https://github.com/darkside))
+
+#### Potentially breaking change
+
+If you were previously querying JSON type data and parsing it from a string in your own code, you'll want to remove that before upgrading.
+
+For example, with previous versions you could do this (even though it would generate a warning):
+
+```ruby
+> query = conn.execute("SELECT JSON_PARSE('{\"a\": 1, \"b\": 2}');")
+> query.wait
+> JSON.parse(query.to_a(header_row: false).first[0])
+WARNING: Unsupported type: json, defaulting to string
+ => {"a"=>1, "b"=>2}
+```
+
+After upgrading, that same code will give you an error:
+```ruby
+> JSON.parse(query.to_a(header_row: false).first[0])
+Traceback (most recent call last):
+        5: from bin/console:14:in `<main>'
+        4: from (irb):12:in `<main>'
+        3: from /home/vagrant/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0/json/common.rb:216:in `parse'
+        2: from /home/vagrant/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0/json/common.rb:216:in `new'
+        1: from /home/vagrant/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0/json/common.rb:216:in `initialize'
+TypeError (no implicit conversion of Hash into String)
+```
+
+Instead just remove your json parsing since Athens handles it now:
+```ruby
+> query = conn.execute("SELECT JSON_PARSE('{\"a\": 1, \"b\": 2}');")
+> query.wait
+> query.to_a(header_row: false).first[0]
+ => {:a=>1, :b=>2}
+```
+
+
 ## 0.3.6 / 2021-11-16
 
 * Addition of :result_encryption as a configuration option to change encryption options for query results (https://github.com/getletterpress/athens/issues/12)
