@@ -4,13 +4,11 @@
 # Provisioning script
 $script = <<SCRIPT
   echo "*** Updating packages"
-
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y aptitude
-  sudo DEBIAN_FRONTEND=noninteractive aptitude update
-  sudo DEBIAN_FRONTEND=noninteractive aptitude -y safe-upgrade
+  sudo DEBIAN_FRONTEND=noninteractive apt-get update
+  sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade
 
   echo "*** Installing new packages"
-  sudo DEBIAN_FRONTEND=noninteractive aptitude install -y curl git-core vim
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y curl git-core vim
 
   if rvm -v 2>/dev/null; then
     echo "*** rvm already installed, skipping"
@@ -30,7 +28,7 @@ SCRIPT
 
 
 Vagrant.configure('2') do |config|
-  config.vm.box      = "ubuntu/xenial64"
+  config.vm.box      = "ubuntu/focal64"
   config.vm.hostname = 'athens-dev'
 
   # Provision the machine with the shell script above
