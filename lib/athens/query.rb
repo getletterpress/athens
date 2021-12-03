@@ -141,7 +141,7 @@ module Athens
         metadata.column_info.each_with_index do |col, index|
           data = row.data[index].var_char_value
           nullable = ["UNKNOWN", "NULLABLE"].include?(col.nullable)
-
+          
           if nullable && data.nil?
             mapped << data
           elsif !nullable && data.nil?
@@ -166,6 +166,8 @@ module Athens
               mapped << Date.parse(data)
             when 'boolean'
               mapped << (data == "true")
+            when 'json'
+              mapped << MultiJson.load(data, symbolize_keys: true)
             else
               puts "WARNING: Unsupported type: #{col.type}, defaulting to string"
               mapped << data
