@@ -170,6 +170,12 @@ After checking out the repo, run `bin/setup` to install dependencies. You can al
 
 If you want you can use Vagrant instead, there's already a `Vagrantfile` so a simple `vagrant up` should get you setup.
 
+If you want to use Docker, grab a ruby image and boot into the console.  Then install git and bash and you can run the `bin/setup` script from there:
+
+```
+docker run --rm -it -v $(pwd):/app -w /app ruby:2.7-alpine /bin/sh -c 'apk add bash git;/bin/bash'
+```
+
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
