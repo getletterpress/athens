@@ -1,3 +1,7 @@
+## 0.4.1 / 2022-06-16
+
+* Specifying minimum version of `aws-sdk-core` gem for `jmespath` security issue
+
 ## 0.4.0 / 2021-12-03
 
 * Added automatic parsing of JSON columns (thanks [darkside](https://github.com/darkside))
