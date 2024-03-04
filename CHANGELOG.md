@@ -1,3 +1,7 @@
+## 0.4.2 / 2024-03-04
+
+* Not locking `aws-sdk-core` gem version because `aws-sdk-athena` already requires it
+
 ## 0.4.1 / 2022-06-16
 
 * Specifying minimum version of `aws-sdk-core` gem for `jmespath` security issue
