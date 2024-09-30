@@ -104,6 +104,22 @@ You can also override the AWS client configuration on a per-connection basis:
 conn = Athens::Connection.new(aws_client_override: {})
 ```
 
+Unlike the gem's credential names, the override option accepts the same parameter names as the core AWS SDK, namely `access_key_id` and `secret_access_key`. Below is an example of using the assumed role to generate temporary credentials and using the override.
+
+```ruby
+credentials = Aws::AssumeRoleCredentials.new(
+  role_arn: "arn:aws:iam::ACCOUNT:role/ROLE",
+  role_session_name: "AssumeRoleSession"
+).credentials
+conn = Athens::Connection.new(
+  aws_client_override: {
+    access_key_id: credentials.access_key_id,
+    secret_access_key: credentials.secret_access_key,
+    session_token: credentials.session_token
+  }
+)
+```
+
 Take a look at the [AWS Athena SDK](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Athena/Client.html#initialize-instance_method) for a list of all the available options.
 
 The `result_encryption` option controls how the Athens results will be encrypted at the `output_location`.  By default it's set to use the Amazon SSE encryption if you don't set it at all:
