@@ -1,6 +1,6 @@
 # Athens
 
-Athens is a wrapper around the standard AWS athena sdk, with a much simpler interface for executing queries and processing results.
+Athens is a wrapper around the standard AWS Athena SDK, with a much simpler interface for executing queries and processing results.
 
 ## Installation
 
@@ -55,8 +55,8 @@ Or as a hash (which is really an array where each row is a hash):
 ```ruby
 results = query.to_h
 # [
-#   {'column_1': 15, 'column_2': 'data', 'column_3': true},
-#   {'column_1': 20, 'column_2': 'foo', 'column_3': false},
+#   {'column_1' => 15, 'column_2' => 'data', 'column_3' => true},
+#   {'column_1' => 20, 'column_2' => 'foo', 'column_3' => false},
 #   ...
 # ]
 ```
@@ -66,23 +66,23 @@ Results are also available as unbuffered enumerators of row arrays:
 query.rows.each {|row| ...}
 # ['column_1', 'column_2', 'column_3']
 # [15, 'data', true]
-# [20, 'foo', false],
+# [20, 'foo', false]
 # ...
 ```
 
 Or hashes:
 ```ruby
 query.records.each {|record| ...}
-# {'column_1': 15, 'column_2': 'data', 'column_3': true}
-# {'column_1': 20, 'column_2': 'foo', 'column_3': false}
+# {'column_1' => 15, 'column_2' => 'data', 'column_3' => true}
+# {'column_1' => 20, 'column_2' => 'foo', 'column_3' => false}
 # ...
 ```
 
-Athens attempts to parse the sql data types into their ruby equivalents, although there's currently no support for the more complex Array/Map types.
+Athens attempts to parse the SQL data types into their Ruby equivalents, although there's currently no support for the more complex Array/Map types.
 
 ### Configuration
 
-Configure your AWS settings in an `Athens.configure` block (in rails put this in `config/initializers/athens.rb`):
+Configure your AWS settings in an `Athens.configure` block (in Rails put this in `config/initializers/athens.rb`):
 
 ```ruby
 Athens.configure do |config|
@@ -96,7 +96,7 @@ Athens.configure do |config|
 end
 ```
 
-The aws parameters are all "optional", in that you can omit those in favor of any of the standard AWS configuration options (i.e. IAM Roles, environment variables, .aws/credentials files).
+The AWS parameters are all "optional", in that you can omit those in favor of any of the standard AWS configuration options (i.e. IAM Roles, environment variables, .aws/credentials files).
 
 You can also override the AWS client configuration on a per-connection basis:
 
@@ -135,7 +135,7 @@ If you set it to `nil`, it'll default to the bucket encryption settings.  You ca
 Providing a database name to the connection is optional, if you omit the name you'll have to specify it in your query:
 
 ```ruby
-conn = Athens::Connection.new(database 'sample')
+conn = Athens::Connection.new(database: 'sample')
 query = conn.execute("SELECT * FROM mytable")
 
 # or
@@ -147,7 +147,7 @@ query = conn.execute("SELECT * FROM sample.mytable")
 While waiting for a query to finish, you could get one of two exceptions:
 
 ```ruby
-conn = Athens::Connection.new(database 'sample')
+conn = Athens::Connection.new(database: 'sample')
 query = conn.execute("SELECT * FROM mytable")
 
 begin
